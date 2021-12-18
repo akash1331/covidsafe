@@ -18,3 +18,4 @@ class assessmentAdmin(admin.ModelAdmin):
 admin.site.register(hospital,hospitalAdmin)
 admin.site.register(citizen,citizenAdmin)
 admin.site.register(Self_Assesment_test,assessmentAdmin)
+admin.site.register(avail_slot)

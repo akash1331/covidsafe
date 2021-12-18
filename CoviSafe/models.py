@@ -1,30 +1,13 @@
 from django.db import models
 from django.db.models.deletion import SET_NULL
+from datetime import date
+from django.contrib.postgres.fields import ArrayField
 # Create your models here.
-class citizen(models.Model):
-    first_name = models.TextField(max_length=30)
-    last_name = models.TextField(max_length=30)
-    profile_photo = models.ImageField(default = False)
-    username = models.TextField(max_length=40)
-    age = models.IntegerField()
-    phone_number = models.IntegerField(unique=True)
-    aadhar = models.IntegerField()
-    blood_group = models.CharField(max_length=5)
-    isolation = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.first_name
-
-    def __str__(self):
-        return self.last_name
-
-    # def __str__(self):
-    #     return self.
-
 class hospital(models.Model):
     hospital_name = models.TextField(max_length=30)
     test_taken = models.BooleanField(default=True)
     address = models.TextField(max_length=30)
+    # slot_date = ArrayField(models.DateField())
     hospital_phone = models.IntegerField()
     hospital_email = models.CharField(max_length=30)
     oxygen = models.BooleanField(default=True)
@@ -45,6 +28,33 @@ class hospital(models.Model):
     def __str__(self):
         return self.hospital_email
 
+
+class avail_slot(models.Model):
+    slot_date = models.DateField()
+
+
+class citizen(models.Model):
+    first_name = models.TextField(max_length=30)
+    last_name = models.TextField(max_length=30)
+    profile_photo = models.ImageField(default = False)
+    username = models.TextField(max_length=40)
+    age = models.IntegerField()
+    phone_number = models.IntegerField(unique=True)
+    aadhar = models.IntegerField()
+    blood_group = models.CharField(max_length=5)
+    isolation = models.BooleanField(default=False)
+    avail = models.ForeignKey(avail_slot,on_delete=SET_NULL,null=True)
+
+    def __str__(self):
+        return self.first_name
+
+    def __str__(self):
+        return self.last_name
+
+    # def __str__(self):
+    #     return self.
+
+
 class Self_Assesment_test(models.Model):
     age = models.IntegerField()
     vaccine = models.BooleanField()
@@ -60,4 +70,3 @@ class Self_Assesment_test(models.Model):
     
 
 
-    
